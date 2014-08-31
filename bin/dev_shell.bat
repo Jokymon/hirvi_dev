@@ -1,26 +1,32 @@
 @echo off
-REM Run this script to start a Windows command shell where all paths are set
-REM correctly such that the 'hi' commands work
+call %~dp0\include.bat
 
-set PATH=%PATH%;%~dp0
+if not exist %CONFIG_FILE% (
+    echo Missing config file %CONFIG_FILE%
+    goto ErrorEnvironmentNotSetup
+)
+call %CONFIG_FILE%
 
-for /F "usebackq tokens=*" %%a in (`where py`) do SET PYTHON_EXE=%%a
-if defined PYTHON_EXE GOTO PythonFound
-
-if exist C:\Python32\python.exe (
-    set PYTHON_EXE=C:\Python32\python.exe
-    GOTO PythonFound
+if not exist %ENVIRONMENT_DIR%\Scripts\activate.bat (
+    echo Missing virtual env activation script
+    goto ErrorEnvironmentNotSetup
 )
 
-GOTO PythonNotFound
-
-:PythonFound
+set PATH=%PATH%;%~dp0
 cd %~dp0\..
+call %ENVIRONMENT_DIR%\Scripts\activate.bat
 cmd.exe
-GOTO ScriptEnd
 
-:PythonNotFound
-echo "The Python executable could not be found. Make sure it is installed"
+call %ENVIRONMENT_DIR%\Scripts\deactivate.bat
+
+goto ScriptEnd
+
+:ErrorEnvironmentNotSetup
+
+echo.
+echo ERROR: The necessary variables, directories and files can't be found
+echo Make sure you have setup an environment using the create_config.bat
+echo script from the bin directory
 pause
 
 :ScriptEnd

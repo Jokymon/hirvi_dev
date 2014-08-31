@@ -2,3 +2,6 @@
 .cache
 
 *.swp
+
+envdir
+config/config.bat

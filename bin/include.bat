@@ -1,0 +1,6 @@
+@echo off
+set BIN_PATH=%~dp0
+set ENVIRONMENT_NAME=envdir
+set ENVIRONMENT_DIR=%BIN_PATH%\..\%ENVIRONMENT_NAME%
+set CONFIG_PATH=%BIN_PATH%\..\config
+set CONFIG_FILE=%CONFIG_PATH%\config.bat
