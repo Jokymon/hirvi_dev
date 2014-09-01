@@ -1,4 +1,5 @@
 import sys
+import pip
 
 
 def main():
@@ -6,6 +7,10 @@ def main():
     print("=====================\n")
     print("Python executable: %s" % sys.executable)
     print("Python version:    %s" % sys.version)
+    print("-----------------------------")
+    print("Installed packages:")
+    pip.main(['list'])
+    print("-----------------------------")
 
 
 if __name__=="__main__":
