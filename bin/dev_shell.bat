@@ -2,13 +2,13 @@
 call %~dp0\include.bat
 
 if not exist %CONFIG_FILE% (
-    echo Missing config file %CONFIG_FILE%
+    echo Missing config file %CONFIG_FILE%, run create_config.bat or create one yourself
     goto ErrorEnvironmentNotSetup
 )
 call %CONFIG_FILE%
 
 if not exist %ENVIRONMENT_DIR%\Scripts\activate.bat (
-    echo Missing virtual env activation script
+    echo Missing virtual env activation script, run create_config.bat first
     goto ErrorEnvironmentNotSetup
 )
 
