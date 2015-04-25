@@ -3,7 +3,10 @@ import os
 import os.path
 
 
-def show_help():
+script_dir = os.path.dirname(sys.argv[0])
+
+
+def show_help(arguments=None):
     help_text="""
 usage: hi <command> [<args>]
 
@@ -14,7 +17,19 @@ test        Run unit tests
 'hi help -a' lists available subcommands. See 'hi help <command>' to read about
 a specific subcommand.
 """
-    print(help_text)
+    def is_a_command(script_name):
+        if script_name.startswith("hi-") and script_name.endswith(".py"):
+            return True
+        return False
+
+    if "-a" in arguments:
+        print("Known 'hi' sub commands:")
+        scripts = os.listdir(script_dir)
+        scripts = filter(is_a_command, scripts)
+        for script in scripts:
+            print("    %s" % script[3:-3])
+    else:
+        print(help_text)
 
 
 # Tests:
@@ -24,11 +39,10 @@ a specific subcommand.
 
 
 def main():
-    script_dir = os.path.dirname(sys.argv[0])
     if len(sys.argv)>=2:
         command = sys.argv[1]
         if command=="help":
-            show_help()
+            show_help(sys.argv[2:])
             return 0
         command_script = "hi-%s.py" % command
         if command_script in os.listdir(script_dir):
