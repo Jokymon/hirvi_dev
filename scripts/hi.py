@@ -22,12 +22,13 @@ a specific subcommand.
             return True
         return False
 
-    if "-a" in arguments:
-        print("Known 'hi' sub commands:")
-        scripts = os.listdir(script_dir)
-        scripts = filter(is_a_command, scripts)
-        for script in scripts:
-            print("    %s" % script[3:-3])
+    if arguments:
+        if "-a" in arguments:
+            print("Known 'hi' sub commands:")
+            scripts = os.listdir(script_dir)
+            scripts = filter(is_a_command, scripts)
+            for script in scripts:
+                print("    %s" % script[3:-3])
     else:
         print(help_text)
 
