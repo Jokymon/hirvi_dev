@@ -1,3 +1,4 @@
+import importlib
 import sys
 import os
 import os.path
@@ -47,9 +48,8 @@ def main():
             return 0
         command_script = "hi-%s.py" % command
         if command_script in os.listdir(script_dir):
-            script_path = os.path.join(script_dir, command_script)
-            args = " ".join(sys.argv[2:])
-            return os.system("%s %s %s" % (sys.executable, script_path, args))
+            module = importlib.import_module("hi-%s" % command)
+            return module.main(sys.argv[2:])
         else:
             print("hi: '%s' is not a hi command. See 'hi --help'." % command)
             return 1

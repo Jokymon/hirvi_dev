@@ -2,7 +2,7 @@ import sys
 import pip
 
 
-def main():
+def main(args):
     print("System setup summary:")
     print("=====================\n")
     print("Python executable: %s" % sys.executable)
@@ -14,4 +14,4 @@ def main():
 
 
 if __name__=="__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv))
