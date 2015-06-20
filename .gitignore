@@ -3,5 +3,6 @@
 
 *.swp
 
+build
 envdir
 config/config.bat
