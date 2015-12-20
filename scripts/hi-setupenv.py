@@ -1,3 +1,4 @@
+import hi_config
 import sys
 import pip
 import os, os.path
@@ -6,7 +7,10 @@ import tempfile
 
 
 ScriptPath = os.path.dirname(__file__)
+SourcePath = os.path.join(ScriptPath, "..", hi_config.src_dir)
 EnvPath = os.path.abspath(os.environ["ENVIRONMENT_DIR"])
+
+PyvfsRepoPath = "https://github.com/Jokymon/pyvirtualfs.git"
 
 LlvmDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvm-3.3-0.tar.bz2"
 LlvmpyDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvmpy-0.12.7-py34_0.tar.bz2"
@@ -24,6 +28,14 @@ def install_binutils():
     #f = zipfile.ZipFile("binutils.zip", "r")
     #f.extractall()
     #f.close()
+
+
+def install_pyvfs():
+    if not os.path.exists(SourcePath):
+        os.mkdir(SourcePath)
+    os.chdir(SourcePath)
+    os.system("git clone %s" % PyvfsRepoPath)
+    pip.main(['install', '-e', os.path.join(SourcePath, "pyvirtualfs")])
 
 
 def install_llvm():
@@ -59,6 +71,7 @@ def main(args):
     #install_binutils()
     #install_llvm()
     install_bochs()
+    install_pyvfs()
     return 0
 
 if __name__=="__main__":
