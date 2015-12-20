@@ -11,6 +11,7 @@ SourcePath = os.path.join(ScriptPath, "..", hi_config.src_dir)
 EnvPath = os.path.abspath(os.environ["ENVIRONMENT_DIR"])
 
 PyvfsRepoPath = "https://github.com/Jokymon/pyvirtualfs.git"
+HirviRepoPath = "https://github.com/Jokymon/hirvi.git"
 
 LlvmDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvm-3.3-0.tar.bz2"
 LlvmpyDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvmpy-0.12.7-py34_0.tar.bz2"
@@ -34,8 +35,15 @@ def install_pyvfs():
     if not os.path.exists(SourcePath):
         os.mkdir(SourcePath)
     os.chdir(SourcePath)
-    os.system("git clone %s" % PyvfsRepoPath)
+    if not os.path.exists("pyvirtualfs"):
+        os.system("git clone %s" % PyvfsRepoPath)
     pip.main(['install', '-e', os.path.join(SourcePath, "pyvirtualfs")])
+
+
+def install_hirvi():
+    os.chdir(SourcePath)
+    if not os.path.exists("hirvi"):
+        os.system("git clone %s" % HirviRepoPath)
 
 
 def install_llvm():
@@ -72,6 +80,7 @@ def main(args):
     #install_llvm()
     install_bochs()
     install_pyvfs()
+    install_hirvi()
     return 0
 
 if __name__=="__main__":
