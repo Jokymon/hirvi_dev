@@ -12,6 +12,7 @@ EnvPath = os.path.abspath(os.environ["ENVIRONMENT_DIR"])
 
 PyvfsRepoPath = "https://github.com/Jokymon/pyvirtualfs.git"
 HirviRepoPath = "https://github.com/Jokymon/hirvi.git"
+IzanagiRepoPath = "https://github.com/Jokymon/izanagi.git"
 
 LlvmDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvm-3.3-0.tar.bz2"
 LlvmpyDownloadPath = "http://repo.continuum.io/pkgs/free/win-64/llvmpy-0.12.7-py34_0.tar.bz2"
@@ -44,6 +45,12 @@ def install_hirvi():
     os.chdir(SourcePath)
     if not os.path.exists("hirvi"):
         os.system("git clone %s" % HirviRepoPath)
+
+
+def install_izanagi():
+    os.chdir(SourcePath)
+    if not os.path.exists("izanagi"):
+        os.system("git clone %s" % IzanagiRepoPath)
 
 
 def install_llvm():
@@ -81,6 +88,7 @@ def main(args):
     install_bochs()
     install_pyvfs()
     install_hirvi()
+    install_izanagi()
     return 0
 
 if __name__=="__main__":
